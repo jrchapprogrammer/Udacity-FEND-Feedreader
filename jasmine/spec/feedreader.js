@@ -47,6 +47,7 @@ $(
         for (let feed of allFeeds) {
           expect(feed.name).toBeDefined();
           expect(feed.name).not.toBe('');
+          expect(feed.name).toMatch('');
         }
       });
     });
