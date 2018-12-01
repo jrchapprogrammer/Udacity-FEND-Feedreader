@@ -101,11 +101,27 @@ $(
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
+      let initEntry = document.querySelector('.feed');
+      let feedContentBefore, feedContentAfter;
+
+      beforeEach(function(done) {
+        loadFeed(0, function() {
+          done();
+        });
+      });
       /* TODO: Write a test that ensures when a new feed is loaded
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
-      it('content changes when new feed loads', function() {});
+      it('content changes when new feed loads', function(done) {
+        feedContentBefore = initEntry.querySelector('a').innerText;
+        loadFeed(1, function(done) {
+          feedContentAfter = initEntry.querySelector('a').innerText;
+          done();
+        });
+        expect(feedContentBefore).not.toBe(feedContentAfter);
+        done();
+      });
     });
   })()
 );
