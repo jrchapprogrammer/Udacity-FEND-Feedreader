@@ -106,8 +106,12 @@ $(
       let feedContentBefore, feedContentAfter;
 
       beforeEach(done => {
-        loadFeed(0, () => {
-          done();
+        loadFeed(1, () => {
+          feedContentBefore = initEntry.querySelector('a').innerText; // content on first load
+          loadFeed(0, () => {
+            feedContentAfter = initEntry.querySelector('a').innerText; // content on second load
+            done();
+          });
         });
       });
       /* TODO: Write a test that ensures when a new feed is loaded
@@ -115,11 +119,6 @@ $(
        * Remember, loadFeed() is asynchronous.
        */
       it('content changes when new feed loads', done => {
-        feedContentBefore = initEntry.querySelector('a').innerText;
-        loadFeed(1, done => {
-          feedContentAfter = initEntry.querySelector('a').innerText;
-          done();
-        });
         expect(feedContentBefore).not.toBe(feedContentAfter);
         done();
       });
